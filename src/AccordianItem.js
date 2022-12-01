@@ -1,19 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import { useSpring, animated } from 'react-spring';
-import styled from 'styled-components';
-
-const AccordionHeading = styled.div`
-  cursor: pointer;
-  display: flex;
-  line-height: 2rem;
-  padding: 10px;
-`;
 
 const AccordionItem = ({
   header,
   children,
-  className = '',
+  rounderCornerClass = '',
   isOpen = false,
 }) => {
   const [open, setOpen] = useState(isOpen);
@@ -38,12 +30,13 @@ const AccordionItem = ({
     maxHeight: open ? `${contentMaxHeight}px` : '0px',
     config: { duration: 300 },
   });
+
   return (
     <div>
       <h2 id="accordion-collapse-heading-1" onClick={() => setOpen(!open)}>
         <button
           type="button"
-          className={`flex ${className} items-center justify-between w-full p-3 font-medium text-left  border border-b-0 border-gray-200   focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800`}
+          className={`flex ${rounderCornerClass} items-center justify-between w-full p-3 font-medium text-left  border border-b-0 border-gray-200   focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800`}
           data-accordion-target="#accordion-collapse-body-1"
           aria-expanded="true"
           aria-controls="accordion-collapse-body-1"
