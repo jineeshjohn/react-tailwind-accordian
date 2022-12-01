@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from 'react';
 
 import { useSpring, animated } from 'react-spring';
 
-const AccordionItem = ({
+const Accordion = ({
   header,
   children,
-  rounderCornerClass = '',
+  topRounded = false,
+  bottomRounded = false,
   isOpen = false,
 }) => {
   const [open, setOpen] = useState(isOpen);
@@ -26,17 +27,24 @@ const AccordionItem = ({
 
   const { scY, y, ...props } = useSpring({
     scY: open ? -1 : 1,
-    // y: open ? 0 : -contentMaxHeight,
     maxHeight: open ? `${contentMaxHeight}px` : '0px',
     config: { duration: 300 },
   });
+
+  let roundedClassName = '';
+  if (topRounded) {
+    roundedClassName = 'rounded-t-xl';
+  }
+  if (!open && topRounded && bottomRounded) {
+    roundedClassName = 'rounded-xl';
+  }
 
   return (
     <div>
       <h2 id="accordion-collapse-heading-1" onClick={() => setOpen(!open)}>
         <button
           type="button"
-          className={`flex ${rounderCornerClass} items-center justify-between w-full p-3 font-medium text-left  border border-b-0 border-gray-200   focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800`}
+          className={`flex ${roundedClassName} items-center justify-between w-full p-3 font-medium text-left  border border-b-0 border-gray-200   focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 bg-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800`}
           data-accordion-target="#accordion-collapse-body-1"
           aria-expanded="true"
           aria-controls="accordion-collapse-body-1"
@@ -80,4 +88,4 @@ const AccordionItem = ({
   );
 };
 
-export default AccordionItem;
+export default Accordion;
